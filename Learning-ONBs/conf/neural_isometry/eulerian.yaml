@@ -1,0 +1,19 @@
+defaults:
+  - /neural_fields@scalar_field_partial: nerf_spatiotemporal_field
+  - _self_
+
+_target_: infidictionary.neural_isometries.EulerianIsometry
+coords_dim: 2
+channels_dim: 1
+rank: 10
+base_acceleration: 1000.
+atom_shuffling_K: 10
+n_time_freqs: 256
+kr_hidden_dims: [64, 64]
+atom_selector_hidden_dims: [64, 64]
+gradient_checkpointing: true
+
+scalar_field_partial:
+  _partial_: true
+
+
