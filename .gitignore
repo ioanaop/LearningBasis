@@ -1,0 +1,10 @@
+# Python cache (Crucial to block)
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS system files
+.DS_Store
+
+# Temporary scratch files
+scratch/
