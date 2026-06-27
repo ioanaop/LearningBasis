@@ -1,0 +1,104 @@
+# general setting
+backend: dp # DataParallel
+type: ONB_ULRSSM_Model
+num_gpu: auto
+manual_seed: 1234
+non-isometric: false
+partial: false
+
+# path
+path:
+  resume_state: ~
+
+# datasets
+datasets:
+  train_dataset:
+    name: SmalTrain
+    type: PairSmalDataset
+    phase: train
+    data_root: ../data/SMAL_r/
+    category: True
+    return_evecs: True
+    return_faces: True
+    num_evecs: 200
+    return_corr: False
+    return_dist: False
+  test_dataset:
+    name: SmalVal
+    type: PairSmalDataset
+    phase: test
+    data_root: ../data/SMAL_r/
+    category: True
+    return_evecs: True
+    return_faces: True
+    num_evecs: 200
+    return_corr: True
+    return_dist: True
+  # setting for train dataset
+  batch_size: 1
+  num_worker: 1
+
+# network setting
+networks:
+  feature_extractor:
+    type: DiffusionNet_B
+    in_channels: 128
+    out_channels: 256
+    input_type: wks
+  onb_correction:
+    type: CayleyONBCorrection
+    feature_dim: 256   # must match feature_extractor.out_channels
+    rank: 16
+    num_steps: 20      # L
+    bypass: false      # learned correction active
+  fmap_net:
+    type: FasterRegularizedFMNet
+    bidirectional: true
+  permutation:
+    type: Similarity
+    tau: 0.07
+
+# training setting
+train:
+  total_epochs: 20
+  optims:
+    feature_extractor:
+      type: Adam
+      lr: 1.0e-3
+    onb_correction:
+      type: Adam
+      lr: 1.0e-3
+  schedulers:
+    feature_extractor:
+      type: CosineAnnealingLR
+      eta_min: 1.0e-4
+      T_max: 20
+    onb_correction:
+      type: CosineAnnealingLR
+      eta_min: 1.0e-4
+      T_max: 20
+  losses:
+    # Coefficient-space: corrected basis stays plain-orthonormal (Mk = I), so
+    # standard SURFMNet orthogonality is the correct objective (not HS).
+    surfmnet_loss:
+      type: SURFMNetLoss
+      w_bij: 1.0
+      w_orth: 1.0
+      w_lap: 0.0
+    align_loss:
+      type: SquaredFrobeniusLoss
+      loss_weight: 1.0
+
+# validation setting
+val:
+  val_freq: 2000
+  metrics:
+    geo_error:
+      type: calculate_geodesic_error
+    plot_pck:
+      type: plot_pck
+
+# log setting
+logger:
+  print_freq: 20
+  save_checkpoint_freq: 2000

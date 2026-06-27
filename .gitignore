@@ -8,3 +8,14 @@ __pycache__/
 
 # Temporary scratch files
 scratch/
+
+# Weights & Biases run logs
+wandb/
+
+# Training experiment outputs (checkpoints, plots, logs)
+experiments/
+logs/
+*.pth
+
+# Local data symlink (machine-specific)
+/data
