@@ -33,6 +33,7 @@ import numpy as np
 import torch
 
 from networks.onb.correction import CayleyONBCorrection
+from basis_opt.rotnet import ConditionedRotation
 from basis_opt import core
 from basis_opt.dataio import load_shapes, to_device
 
@@ -79,6 +80,10 @@ def main():
     ap.add_argument('--anchor', type=int, default=0,
                     help='train-shape index to canonicalize against (fixed reference '
                          'frame, Q_ref=I); -1 = random distinct pairs (harder to optimize)')
+    ap.add_argument('--net', default='rotnet', choices=['cayley', 'rotnet'],
+                    help='rotation predictor: cayley (joint-pipeline flow) or '
+                         'rotnet (conditioned expm skew, fits standalone alignment)')
+    ap.add_argument('--emb_dim', type=int, default=128, help='rotnet bilinear embedding dim')
     ap.add_argument('--k', type=int, default=100, help='# eigenbasis modes')
     ap.add_argument('--rank', type=int, default=16, help='Cayley generator rank R')
     ap.add_argument('--num_steps', type=int, default=20, help='Cayley integration steps L')
@@ -113,14 +118,19 @@ def main():
     print(f'         {n_tr} train shapes, {n_te} test shapes, '
           f'feature={feat_key} (dim {feat_dim})')
 
-    net = CayleyONBCorrection(
-        feature_dim=feat_dim,
-        rank=args.rank, num_steps=args.num_steps, bypass=False,
-        base_acceleration=args.base_accel,
-        gradient_checkpointing=False,
-    ).to(device)
+    if args.net == 'rotnet':
+        net = ConditionedRotation(
+            feature_dim=feat_dim, emb_dim=args.emb_dim, init_scale=args.base_accel,
+        ).to(device)
+    else:
+        net = CayleyONBCorrection(
+            feature_dim=feat_dim,
+            rank=args.rank, num_steps=args.num_steps, bypass=False,
+            base_acceleration=args.base_accel,
+            gradient_checkpointing=False,
+        ).to(device)
     opt = torch.optim.Adam(net.parameters(), lr=args.lr)
-    print(f'         CayleyONBCorrection params: {sum(p.numel() for p in net.parameters())}')
+    print(f'         net={args.net}  params: {sum(p.numel() for p in net.parameters())}')
 
     # fixed eval pairs (distinct shapes) for a stable learning curve
     eval_pairs = []
@@ -178,7 +188,7 @@ def main():
                   f'|C-I| {ev["net_iddev"]:.2e})')
 
     os.makedirs(args.ckpt, exist_ok=True)
-    out = os.path.join(args.ckpt, f'{args.dataset}_{feat_key}_onb_k{args.k}_r{args.rank}.pth')
+    out = os.path.join(args.ckpt, f'{args.dataset}_{feat_key}_{args.net}_k{args.k}.pth')
     torch.save({'state_dict': net.state_dict(), 'args': vars(args)}, out)
     print(f'  saved -> {out}')
 
