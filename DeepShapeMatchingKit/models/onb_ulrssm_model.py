@@ -50,6 +50,7 @@ class ONB_ULRSSM_Model(ULRSSM_Model):
 
         # ── learned orthonormal-basis correction (one shared instance) ──────────
         onb = self.networks['onb_correction']
+        evecs_x_raw, evecs_y_raw = evecs_x, evecs_y           # keep Φ for the Q penalty
         evecs_x = onb(evecs_x, mass_x, evals_x, feat_x)  # Φ̃_x [B, Nx, K]
         evecs_y = onb(evecs_y, mass_y, evals_y, feat_y)  # Φ̃_y [B, Ny, K]
 
@@ -81,6 +82,23 @@ class ONB_ULRSSM_Model(ULRSSM_Model):
             verts_x, verts_y = data_x['verts'], data_y['verts']
             self.loss_metrics['l_d'] = self.losses['dirichlet_loss'](torch.bmm(Pxy, verts_y), Lx) + \
                                        self.losses['dirichlet_loss'](torch.bmm(Pyx, verts_x), Ly)
+
+        # ── optional Q→identity regularizer ─────────────────────────────────────
+        # The unsupervised SURFMNet objective is too weak to supervise a free
+        # learnable basis: Q can lower the loss by rotating the basis without
+        # improving correspondence (proxy/goal divergence — wks ONB reached a
+        # *lower* loss than baseline yet 3x worse geo-error). This term pulls the
+        # learned rotation back toward I so low loss again implies good matching.
+        # Q = Φ_rawᵀ M Φ̃  (since Φ̃ = Φ_raw Q and Φ_rawᵀ M Φ_raw = I). Weight 0
+        # (default) is an exact no-op, so existing configs are unaffected.
+        q_reg_w = self.opt['train'].get('q_identity_reg_weight', 0.0)
+        if q_reg_w and q_reg_w > 0:
+            B, _, K = evecs_x.shape
+            eye = torch.eye(K, device=evecs_x.device, dtype=evecs_x.dtype)
+            Qx = (evecs_x_raw.transpose(1, 2) * mass_x.unsqueeze(1)) @ evecs_x  # [B, K, K]
+            Qy = (evecs_y_raw.transpose(1, 2) * mass_y.unsqueeze(1)) @ evecs_y  # [B, K, K]
+            l_qreg = ((Qx - eye).pow(2).sum() + (Qy - eye).pow(2).sum()) / B
+            self.loss_metrics['l_qreg'] = q_reg_w * l_qreg
 
     def validate_single(self, data, timer):
         """Mirror of ULRSSM_Model.validate_single, but the same shared basis
