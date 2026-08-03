@@ -1,0 +1,42 @@
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] smal  k=60  anchor=0  device=cuda
+         29 train shapes, 20 test shapes, feature=xyz (dim 3)
+         CayleyONBCorrection params: 303232
+  [eval @0]   raw 0.5313   oracle 0.0352   net 0.5447  (align 2.23e+00)
+  step    50  align_loss 2.366184e+00
+  step   100  align_loss 2.304470e+00
+  step   150  align_loss 2.248562e+00
+  step   200  align_loss 2.228142e+00
+  step   250  align_loss 2.210526e+00
+  step   300  align_loss 2.136317e+00
+  [eval @300]  raw 0.5313   oracle 0.0352   net 0.5650  (align 2.21e+00  |C-I| 1.41e+00)
+  step   350  align_loss 2.126051e+00
+  step   400  align_loss 2.116018e+00
+  step   450  align_loss 2.097201e+00
+  step   500  align_loss 2.115292e+00
+  step   550  align_loss 2.111053e+00
+  step   600  align_loss 2.127033e+00
+  [eval @600]  raw 0.5313   oracle 0.0352   net 0.5674  (align 2.17e+00  |C-I| 1.42e+00)
+  step   650  align_loss 1.995120e+00
+  step   700  align_loss 2.062456e+00
+  step   750  align_loss 2.036501e+00
+  step   800  align_loss 2.017101e+00
+  step   850  align_loss 1.975359e+00
+  step   900  align_loss 1.942952e+00
+  [eval @900]  raw 0.5313   oracle 0.0352   net 0.5757  (align 2.19e+00  |C-I| 1.39e+00)
+  step   950  align_loss 1.890714e+00
+  step  1000  align_loss 1.868942e+00
+  step  1050  align_loss 1.931862e+00
+  step  1100  align_loss 1.870815e+00
+  step  1150  align_loss 1.846547e+00
+  step  1200  align_loss 1.782180e+00
+  [eval @1200]  raw 0.5313   oracle 0.0352   net 0.5839  (align 2.20e+00  |C-I| 1.38e+00)
+  step  1250  align_loss 1.838818e+00
+  step  1300  align_loss 1.764308e+00
+  step  1350  align_loss 1.755713e+00
+  step  1400  align_loss 1.733197e+00
+  step  1450  align_loss 1.739088e+00
+  step  1500  align_loss 1.736223e+00
+  [eval @1500]  raw 0.5313   oracle 0.0352   net 0.5855  (align 2.22e+00  |C-I| 1.34e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/smal_xyz_onb_k60_r64.pth

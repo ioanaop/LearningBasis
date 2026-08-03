@@ -1,0 +1,27 @@
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] smal  k=60  anchor=0  device=cuda
+         29 train shapes, 20 test shapes, WKS dim 128
+         CayleyONBCorrection params: 115456
+  [eval @0]   raw 0.5313   oracle 0.0352   net 0.5349  (align 2.23e+00)
+  step    50  align_loss 2.362365e+00
+  step   100  align_loss 2.351376e+00
+  step   150  align_loss 2.277800e+00
+  step   200  align_loss 2.280420e+00
+  [eval @200]  raw 0.5313   oracle 0.0352   net 0.5919  (align 2.24e+00  |C-I| 1.72e+00)
+  step   250  align_loss 2.286858e+00
+  step   300  align_loss 2.219148e+00
+  step   350  align_loss 2.189195e+00
+  step   400  align_loss 2.215553e+00
+  [eval @400]  raw 0.5313   oracle 0.0352   net 0.5891  (align 2.20e+00  |C-I| 1.67e+00)
+  step   450  align_loss 2.182892e+00
+  step   500  align_loss 2.197584e+00
+  step   550  align_loss 2.249088e+00
+  step   600  align_loss 2.156822e+00
+  [eval @600]  raw 0.5313   oracle 0.0352   net 0.5856  (align 2.15e+00  |C-I| 1.57e+00)
+  step   650  align_loss 2.093528e+00
+  step   700  align_loss 2.143846e+00
+  step   750  align_loss 2.091437e+00
+  step   800  align_loss 2.092707e+00
+  [eval @800]  raw 0.5313   oracle 0.0352   net 0.5725  (align 2.15e+00  |C-I| 1.55e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/smal_wks_onb_k60_r32.pth
