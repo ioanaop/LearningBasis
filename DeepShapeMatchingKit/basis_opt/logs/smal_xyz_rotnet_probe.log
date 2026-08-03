@@ -1,0 +1,17 @@
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] smal  k=60  anchor=0  device=cuda
+         29 train shapes, 20 test shapes, feature=xyz (dim 3)
+         net=rotnet  params: 135169
+  [eval @0]   raw 0.5191   oracle 0.0351   net 0.6299  (align 2.23e+00)
+  step    50  align_loss 2.300034e+00
+  step   100  align_loss 2.268310e+00
+  step   150  align_loss 2.292160e+00
+  step   200  align_loss 2.292173e+00
+  [eval @200]  raw 0.5191   oracle 0.0351   net 0.5867  (align 2.21e+00  |C-I| 1.46e+00)
+  step   250  align_loss 2.312103e+00
+  step   300  align_loss 2.257056e+00
+  step   350  align_loss 2.274439e+00
+  step   400  align_loss 2.249421e+00
+  [eval @400]  raw 0.5191   oracle 0.0351   net 0.5639  (align 2.22e+00  |C-I| 1.44e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/smal_xyz_rotnet_k60.pth

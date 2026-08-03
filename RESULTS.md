@@ -133,3 +133,60 @@ Two follow-ups test that:
 > without `basis_opt/` present and died immediately on a missing file. The
 > longest completed run is the 3 000-step FAUST one above. Whether the net keeps
 > closing the gap past 3 000 steps is untested.
+
+---
+
+# Follow-up A — is the *parametrization* the bottleneck?
+
+**Branch:** `exp/frozen-features-rotnet` (adds `basis_opt/rotnet.py`, `--net` flag)
+
+Stage 0 showed a **free** `K×K` rotation `Q = expm(A − Aᵀ)` fits the alignment
+objective essentially exactly, while the Cayley flow — built for the
+differentiable joint pipeline, not for standalone supervised fitting — could not.
+So: keep the `expm` parametrization that demonstrably works, and make the skew
+generator `A` a learned *function* of the shape's frozen features.
+
+```
+coords[i] = concat( rms_norm(ΦᵀM feat)[i] , eigpos[i] )   # (K, cond)
+E_p, E_q  = MLP(coords).split                             # (K, d) each
+A         = scale * (E_p E_qᵀ − E_q E_pᵀ)                 # (K, K) skew
+Q         = expm(A)                                       # orthonormal
+```
+
+The bilinear `E_p E_qᵀ` builds a full `K×K` (rank ≤ d) data-dependent matrix from
+per-mode embeddings; skew-symmetrizing then `expm` makes it a rotation. Small MLP
+weights ⇒ `A ≈ 0` ⇒ `Q ≈ I`, the same identity anchor as the Cayley bypass.
+Drop-in: same `forward(evecs, mass, evals, feats)` signature, so `run_stage1.py`
+uses it unchanged.
+
+## How to reproduce
+
+```bash
+cd DeepShapeMatchingKit
+python basis_opt/run_stage1.py --dataset smal --feature xyz --net rotnet \
+    --k 60 --steps 2000 --eval_every 400
+```
+
+## Results — SMAL, xyz features, k=60
+
+| Run | params | raw | oracle | net (best → final) | log |
+|---|---|---|---|---|---|
+| `smal_xyz_rotnet_probe` | 135,169 | 0.5191 | 0.0351 | 0.6299 → **0.5639** | `logs/smal_xyz_rotnet_probe.log` |
+| `smal_xyz_rotnet_tuned` | 200,705 | 0.5313 | 0.0352 | 0.6223 → **0.5319** (@1200) | `logs/smal_xyz_rotnet_tuned.log` |
+
+Checkpoint: `ckpts/smal_xyz_rotnet_k60.pth`.
+
+## Read
+
+The tuned run's best point (0.5319) essentially **ties `raw` (0.5313)** and then
+gets worse again by step 2000 (0.5895); the align loss meanwhile decreases
+smoothly (2.27 → 2.10). A strictly more expressive, more directly parametrized
+rotation network lands in exactly the same place as the Cayley flow: it optimizes
+the objective while failing to beat doing nothing, with a ~15× oracle gap
+sitting unclaimed.
+
+**Conclusion: the parametrization is not the bottleneck.** Two different
+orthonormal parametrizations, one of which provably can fit the objective when
+given free per-pair parameters, both fail once `Q` must be a function of a single
+shape's features. That is evidence for the pairwise-representability hypothesis,
+not against it.

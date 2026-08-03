@@ -1,0 +1,52 @@
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] smal  k=60  anchor=0  device=cuda
+         29 train shapes, 20 test shapes, feature=xyz (dim 3)
+         net=rotnet  params: 200705
+  [eval @0]   raw 0.5313   oracle 0.0352   net 0.6223  (align 2.27e+00)
+  step    50  align_loss 2.339029e+00
+  step   100  align_loss 2.382783e+00
+  step   150  align_loss 2.328190e+00
+  step   200  align_loss 2.334810e+00
+  step   250  align_loss 2.335377e+00
+  step   300  align_loss 2.317769e+00
+  step   350  align_loss 2.285071e+00
+  step   400  align_loss 2.274694e+00
+  [eval @400]  raw 0.5313   oracle 0.0352   net 0.5378  (align 2.20e+00  |C-I| 1.60e+00)
+  step   450  align_loss 2.224189e+00
+  step   500  align_loss 2.266988e+00
+  step   550  align_loss 2.269694e+00
+  step   600  align_loss 2.235707e+00
+  step   650  align_loss 2.191755e+00
+  step   700  align_loss 2.272296e+00
+  step   750  align_loss 2.207554e+00
+  step   800  align_loss 2.232881e+00
+  [eval @800]  raw 0.5313   oracle 0.0352   net 0.5469  (align 2.21e+00  |C-I| 1.56e+00)
+  step   850  align_loss 2.241537e+00
+  step   900  align_loss 2.187054e+00
+  step   950  align_loss 2.191844e+00
+  step  1000  align_loss 2.161596e+00
+  step  1050  align_loss 2.215458e+00
+  step  1100  align_loss 2.205497e+00
+  step  1150  align_loss 2.183766e+00
+  step  1200  align_loss 2.243454e+00
+  [eval @1200]  raw 0.5313   oracle 0.0352   net 0.5319  (align 2.23e+00  |C-I| 1.56e+00)
+  step  1250  align_loss 2.302831e+00
+  step  1300  align_loss 2.232903e+00
+  step  1350  align_loss 2.219302e+00
+  step  1400  align_loss 2.227104e+00
+  step  1450  align_loss 2.213869e+00
+  step  1500  align_loss 2.247229e+00
+  step  1550  align_loss 2.211978e+00
+  step  1600  align_loss 2.223465e+00
+  [eval @1600]  raw 0.5313   oracle 0.0352   net 0.5545  (align 2.22e+00  |C-I| 1.46e+00)
+  step  1650  align_loss 2.142341e+00
+  step  1700  align_loss 2.166186e+00
+  step  1750  align_loss 2.152294e+00
+  step  1800  align_loss 2.155040e+00
+  step  1850  align_loss 2.131818e+00
+  step  1900  align_loss 2.104680e+00
+  step  1950  align_loss 2.105205e+00
+  step  2000  align_loss 2.127943e+00
+  [eval @2000]  raw 0.5313   oracle 0.0352   net 0.5895  (align 2.21e+00  |C-I| 1.47e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/smal_xyz_rotnet_k60.pth
