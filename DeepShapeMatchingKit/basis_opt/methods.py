@@ -74,11 +74,25 @@ def match_net_basis(sx, sy, K, net=None, **kw):
     return core.recover_p2p(evx, evy)
 
 
+def match_net_fmap_supervised(sx, sy, K, net=None, **kw):
+    """Same architecture, same frozen WKS, same test-time matching as
+    `match_net_basis` -- NN-in-(corrected)-basis, no GT/fmap solve at test
+    time. The ONLY difference is which loss trained `net`'s checkpoint:
+    `core.functional_map_diagnostic_loss` (functional-map space) here, vs
+    `core.alignment_loss` (point space) for `match_net_basis`. This is a
+    separate registry key purely so run_eval's table can show both
+    checkpoints side by side under distinct, labeled columns; the matching
+    logic itself is identical, so it just delegates.
+    """
+    return match_net_basis(sx, sy, K, net=net, **kw)
+
+
 # registry used by run_eval (order = column order)
 METHODS = {
     'wks_nn': match_wks_nn,
     'raw': match_raw_basis,
     'classical': match_classical_fmap,
     'net': match_net_basis,
+    'net_fmap_supervised': match_net_fmap_supervised,
     'oracle': match_oracle_basis,
 }
