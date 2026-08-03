@@ -133,3 +133,115 @@ Two follow-ups test that:
 > without `basis_opt/` present and died immediately on a missing file. The
 > longest completed run is the 3 000-step FAUST one above. Whether the net keeps
 > closing the gap past 3 000 steps is untested.
+
+---
+
+# Follow-up B — is the *objective* the bottleneck?
+
+**Branch:** `exp/frozen-features-fmap-loss`
+
+Follow-up A ruled out the parametrization. This branch attacks the other
+candidate: maybe the point-space alignment loss is too weak or too indirect, and
+the same GT supervision expressed differently would find the rotation.
+
+## What was added
+
+**1. A functional-map-space loss** (`core.functional_map_diagnostic_loss`).
+Identical supervision, re-expressed as a single `K×K` comparison `‖C − C_gt‖²`:
+
+- `C_gt` — the GT fmap, least-squares fit from the GT correspondence in the
+  corrected basis.
+- `C` — the fmap solved the way the real pipeline solves it
+  (`regularized_fmap_solve`, the same closed-form regularized solve DSMK's
+  `FasterRegularizedFMNet` uses), from the frozen descriptors projected onto the
+  corrected basis.
+
+Both are pinned to the same `Y → X` direction so `C − C_gt` compares like with
+like. Fully differentiable into `Q_x, Q_y`; no permutation/argmin in the path.
+
+**2. A hybrid loss** — primary loss plus a small dose of the other, both
+evaluated at the **same** `Q`. This matters mechanically:
+`compute_rotation` calls `shuffle_model_state()`, which in `train()` mode
+resamples the Cayley flow's ODE time-span **randomly on every call**. Computing
+`Q` separately for each term would silently use two *different* random rotations
+in one step. `run_stage1._pair_loss` computes `Q` once and reuses it.
+
+**3. `check_q_movement.py`** — compares a trained `Q` against a freshly
+initialized net at the same seed, both in `.eval()` mode (in `train()` mode the
+time-span resampling means a comparison measures noise, not learning). Answers
+"did the optimizer get any signal at all?"
+
+## How to reproduce
+
+```bash
+cd DeepShapeMatchingKit
+K="--dataset faust --feature wks --k 60 --rank 32 --steps 3000 --eval_every 500"
+
+python basis_opt/run_stage1.py $K --loss_mode point_align       # control
+python basis_opt/run_stage1.py $K --loss_mode fmap_supervised   # fmap-space
+python basis_opt/run_stage1.py $K --loss_mode hybrid --hybrid_weight 0.1
+python basis_opt/run_stage1.py $K --loss_mode hybrid --hybrid_weight 0.01
+
+python basis_opt/check_q_movement.py \
+    --ckpt basis_opt/ckpts/faust_wks_onb_k60_r32_point_align.pth \
+    --ckpt basis_opt/ckpts/faust_wks_onb_k60_r32_fmap_supervised.pth
+```
+
+## Results — FAUST, WKS, k=60, rank 32, 3000 steps
+
+`raw` 0.5770, `oracle` 0.0195 throughout.
+
+| Loss mode | net @0 | @1000 | @2000 | @3000 | training loss behaviour |
+|---|---|---|---|---|---|
+| `point_align` (control) | 0.5750 | — | 0.4425 | **0.3933** | 1.88 → 1.67, steady decrease |
+| `fmap_supervised` | 0.5750 | 0.6519 | 0.6625 | 0.6637 | ~5.1e-2, **flat, no trend** |
+| `hybrid` (fmap + 0.1·point) | 0.5750 | 0.6499 | 0.6496 | 0.6792 | 2.64e-1, flat |
+| `hybrid` (fmap + 0.01·point) | 0.5750 | 0.6159 | 0.6477 | 0.6436 | 7.3e-2, flat |
+
+## Read
+
+**The fmap-space objective is strictly worse than useless.** It starts at raw
+(0.575), immediately degrades past it, and settles ~0.66 — *worse than doing
+nothing* — while its loss sits flat at ~5e-2 with no downward trend across 3000
+steps. Neither hybrid weighting rescues it; both track the pure fmap loss, not
+the point loss that demonstrably works.
+
+So the answer to "is the objective the bottleneck?" is **no, and the fmap
+framing is actively harmful**. Combined with Follow-up A, neither the
+parametrization nor the objective explains the failure — which leaves
+representability: a per-shape network being asked to produce an inherently
+pairwise rotation.
+
+## The gauge finding — why `Q` is inert downstream
+
+The most useful result on this branch came from asking what a learned `Q`
+actually does to a *real* fmap solver, rather than to NN-in-basis matching. It
+does **nothing**, and provably so:
+
+- the solver **absorbs** an orthonormal `Q`: `C = Q_yᵀ C_raw Q_x`, and
+  `fmap2pointmap` is invariant to orthonormal changes of basis;
+- the resolvent regularizer **penalizes** any `Q ≠ I`.
+
+So downstream, `Q = I` is already optimal — an orthonormal per-shape rotation is
+a gauge transformation the pipeline is built to ignore. This reframes the whole
+project's negative results: the joint model's `Q` was never going to help the
+solver, only ever to hurt it.
+
+`downstream.py` follows that logic to its conclusion: the one transform the
+solver *cannot* undo is a **non-orthonormal** one. It adds `SharedMetric D` — a
+single population-level `K×K` matrix (`diag` or `I + UVᵀ` low-rank, initialized
+to identity so training starts exactly at the classical-fmap baseline) giving
+`Φ̃ = Φ Q D`, trained by an InfoNCE contrastive loss on fmap-transported
+embeddings at GT-corresponding points. The contrastive negatives are what stop
+`D` collapsing to zero, which a plain alignment loss would permit.
+
+```bash
+python basis_opt/run_stage1.py $K --eval_mode fmap_downstream \
+    --use_shared_metric diag --freeze_q
+```
+
+> **Status: implemented, not yet evaluated.** The code and CLI are complete and a
+> freeze-Q diagnostic checkpoint exists
+> (`ckpts/faust_wks_onb_k60_r32_fmap_downstream-diag-freezeQ.pth`), but **no
+> training log was captured**, so there is no `D` result to report. This is the
+> first thing to run to continue the project.

@@ -1,0 +1,74 @@
+######## fmap_supervised RERUN (previous attempt killed early alongside harness task at step 600)  09:51:21 ########
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] faust  k=60  random-pairs  loss_mode=fmap_supervised  device=cuda
+         80 train shapes, 20 test shapes, feature=wks (dim 128)
+         CayleyONBCorrection params: 115456
+  [eval @0]   raw 0.5770   oracle 0.0195   net 0.5750  (align 2.04e+00)
+  step    50  fmap_supervised_loss 5.031954e-02
+  step   100  fmap_supervised_loss 5.226541e-02
+  step   150  fmap_supervised_loss 4.989396e-02
+  step   200  fmap_supervised_loss 4.922206e-02
+  step   250  fmap_supervised_loss 5.283084e-02
+  step   300  fmap_supervised_loss 5.137549e-02
+  step   350  fmap_supervised_loss 5.386992e-02
+  step   400  fmap_supervised_loss 5.052497e-02
+  step   450  fmap_supervised_loss 5.138965e-02
+  step   500  fmap_supervised_loss 4.817084e-02
+  [eval @500]  raw 0.5770   oracle 0.0195   net 0.6452  (align 2.05e+00  |C-I| 1.66e+00)
+  step   550  fmap_supervised_loss 5.423916e-02
+  step   600  fmap_supervised_loss 5.185293e-02
+  step   650  fmap_supervised_loss 5.077863e-02
+  step   700  fmap_supervised_loss 5.175302e-02
+  step   750  fmap_supervised_loss 4.994162e-02
+  step   800  fmap_supervised_loss 5.636682e-02
+  step   850  fmap_supervised_loss 5.435506e-02
+  step   900  fmap_supervised_loss 5.446275e-02
+  step   950  fmap_supervised_loss 5.345524e-02
+  step  1000  fmap_supervised_loss 5.565642e-02
+  [eval @1000]  raw 0.5770   oracle 0.0195   net 0.6519  (align 2.05e+00  |C-I| 1.67e+00)
+  step  1050  fmap_supervised_loss 5.371052e-02
+  step  1100  fmap_supervised_loss 5.314364e-02
+  step  1150  fmap_supervised_loss 5.241118e-02
+  step  1200  fmap_supervised_loss 5.157817e-02
+  step  1250  fmap_supervised_loss 5.289634e-02
+  step  1300  fmap_supervised_loss 5.206245e-02
+  step  1350  fmap_supervised_loss 5.180645e-02
+  step  1400  fmap_supervised_loss 5.148618e-02
+  step  1450  fmap_supervised_loss 5.287161e-02
+  step  1500  fmap_supervised_loss 5.237582e-02
+  [eval @1500]  raw 0.5770   oracle 0.0195   net 0.6493  (align 2.05e+00  |C-I| 1.65e+00)
+  step  1550  fmap_supervised_loss 5.342820e-02
+  step  1600  fmap_supervised_loss 5.568002e-02
+  step  1650  fmap_supervised_loss 5.229980e-02
+  step  1700  fmap_supervised_loss 5.331785e-02
+  step  1750  fmap_supervised_loss 5.337474e-02
+  step  1800  fmap_supervised_loss 5.139948e-02
+  step  1850  fmap_supervised_loss 5.091060e-02
+  step  1900  fmap_supervised_loss 5.169285e-02
+  step  1950  fmap_supervised_loss 5.425747e-02
+  step  2000  fmap_supervised_loss 5.273343e-02
+  [eval @2000]  raw 0.5770   oracle 0.0195   net 0.6625  (align 2.07e+00  |C-I| 1.64e+00)
+  step  2050  fmap_supervised_loss 5.267012e-02
+  step  2100  fmap_supervised_loss 5.399386e-02
+  step  2150  fmap_supervised_loss 5.416024e-02
+  step  2200  fmap_supervised_loss 5.071728e-02
+  step  2250  fmap_supervised_loss 5.184661e-02
+  step  2300  fmap_supervised_loss 5.393335e-02
+  step  2350  fmap_supervised_loss 5.143770e-02
+  step  2400  fmap_supervised_loss 5.412234e-02
+  step  2450  fmap_supervised_loss 5.238220e-02
+  step  2500  fmap_supervised_loss 5.139718e-02
+  [eval @2500]  raw 0.5770   oracle 0.0195   net 0.6670  (align 2.06e+00  |C-I| 1.55e+00)
+  step  2550  fmap_supervised_loss 5.077850e-02
+  step  2600  fmap_supervised_loss 5.085046e-02
+  step  2650  fmap_supervised_loss 5.080613e-02
+  step  2700  fmap_supervised_loss 5.183255e-02
+  step  2750  fmap_supervised_loss 5.182746e-02
+  step  2800  fmap_supervised_loss 5.701464e-02
+  step  2850  fmap_supervised_loss 5.101373e-02
+  step  2900  fmap_supervised_loss 5.462494e-02
+  step  2950  fmap_supervised_loss 5.053857e-02
+  step  3000  fmap_supervised_loss 4.966199e-02
+  [eval @3000]  raw 0.5770   oracle 0.0195   net 0.6637  (align 2.05e+00  |C-I| 1.56e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/faust_wks_onb_k60_r32_fmap_supervised.pth

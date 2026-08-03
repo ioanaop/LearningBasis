@@ -1,0 +1,57 @@
+######## point_align  (baseline, reproduces stage1_k60.log settings)  22:41:49 ########
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] faust  k=60  random-pairs  loss_mode=point_align  device=cuda
+         80 train shapes, 20 test shapes, feature=wks (dim 128)
+         CayleyONBCorrection params: 115456
+  [eval @0]   raw 0.5770   oracle 0.0195   net 0.5750  (align 2.04e+00)
+  step    50  point_align_loss 2.092029e+00
+  step   100  point_align_loss 2.133465e+00
+  step   150  point_align_loss 2.116335e+00
+  step   200  point_align_loss 2.067976e+00
+  step   250  point_align_loss 2.023777e+00
+  step   300  point_align_loss 2.072767e+00
+  step   350  point_align_loss 2.023575e+00
+  step   400  point_align_loss 2.031983e+00
+  step   450  point_align_loss 2.032463e+00
+  step   500  point_align_loss 2.018042e+00
+  [eval @500]  raw 0.5770   oracle 0.0195   net 0.6062  (align 2.00e+00  |C-I| 1.81e+00)
+  step   550  point_align_loss 2.030301e+00
+  step   600  point_align_loss 2.030414e+00
+  step   650  point_align_loss 1.995159e+00
+  step   700  point_align_loss 1.940993e+00
+  step   750  point_align_loss 1.932213e+00
+  step   800  point_align_loss 1.971330e+00
+  step   850  point_align_loss 1.939605e+00
+  step   900  point_align_loss 1.951320e+00
+  step   950  point_align_loss 1.932677e+00
+  step  1000  point_align_loss 1.932787e+00
+  [eval @1000]  raw 0.5770   oracle 0.0195   net 0.5156  (align 1.88e+00  |C-I| 1.74e+00)
+  step  1050  point_align_loss 1.921758e+00
+  step  1100  point_align_loss 1.918126e+00
+  step  1150  point_align_loss 1.889650e+00
+  step  1200  point_align_loss 1.918420e+00
+  step  1250  point_align_loss 1.890344e+00
+point_align done 22:46:30
+
+######## fmap_supervised  (diagnostic loss, same everything else)  22:46:30 ########
+Terminated
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] faust  k=60  random-pairs  loss_mode=fmap_supervised  device=cuda
+         80 train shapes, 20 test shapes, feature=wks (dim 128)
+         CayleyONBCorrection params: 115456
+  [eval @0]   raw 0.5770   oracle 0.0195   net 0.5750  (align 2.04e+00)
+  step    50  fmap_supervised_loss 5.031954e-02
+  step   100  fmap_supervised_loss 5.226541e-02
+  step   150  fmap_supervised_loss 4.989396e-02
+  step   200  fmap_supervised_loss 4.922206e-02
+  step   250  fmap_supervised_loss 5.283084e-02
+  step   300  fmap_supervised_loss 5.137549e-02
+  step   350  fmap_supervised_loss 5.386992e-02
+  step   400  fmap_supervised_loss 5.052497e-02
+  step   450  fmap_supervised_loss 5.138965e-02
+  step   500  fmap_supervised_loss 4.817084e-02
+  [eval @500]  raw 0.5770   oracle 0.0195   net 0.6452  (align 2.05e+00  |C-I| 1.66e+00)
+  step   550  fmap_supervised_loss 5.423916e-02
+  step   600  fmap_supervised_loss 5.185293e-02

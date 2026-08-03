@@ -1,0 +1,74 @@
+######## hybrid fmap+0.01*point  16:09:29 ########
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] faust  k=60  random-pairs  loss_mode=hybrid  device=cuda
+         80 train shapes, 20 test shapes, feature=wks (dim 128)
+         CayleyONBCorrection params: 115456
+  [eval @0]   raw 0.5770   oracle 0.0195   net 0.5750  (align 2.04e+00)
+  step    50  hybrid[fmap+0.01*point]_loss 7.202694e-02
+  step   100  hybrid[fmap+0.01*point]_loss 7.197772e-02
+  step   150  hybrid[fmap+0.01*point]_loss 7.047499e-02
+  step   200  hybrid[fmap+0.01*point]_loss 7.316599e-02
+  step   250  hybrid[fmap+0.01*point]_loss 7.599411e-02
+  step   300  hybrid[fmap+0.01*point]_loss 7.491631e-02
+  step   350  hybrid[fmap+0.01*point]_loss 7.613889e-02
+  step   400  hybrid[fmap+0.01*point]_loss 7.193716e-02
+  step   450  hybrid[fmap+0.01*point]_loss 7.205186e-02
+  step   500  hybrid[fmap+0.01*point]_loss 6.806062e-02
+  [eval @500]  raw 0.5770   oracle 0.0195   net 0.6343  (align 2.05e+00  |C-I| 1.82e+00)
+  step   550  hybrid[fmap+0.01*point]_loss 7.285475e-02
+  step   600  hybrid[fmap+0.01*point]_loss 7.296376e-02
+  step   650  hybrid[fmap+0.01*point]_loss 7.143155e-02
+  step   700  hybrid[fmap+0.01*point]_loss 6.886529e-02
+  step   750  hybrid[fmap+0.01*point]_loss 7.141183e-02
+  step   800  hybrid[fmap+0.01*point]_loss 7.392102e-02
+  step   850  hybrid[fmap+0.01*point]_loss 7.432251e-02
+  step   900  hybrid[fmap+0.01*point]_loss 7.283437e-02
+  step   950  hybrid[fmap+0.01*point]_loss 7.206538e-02
+  step  1000  hybrid[fmap+0.01*point]_loss 7.370683e-02
+  [eval @1000]  raw 0.5770   oracle 0.0195   net 0.6159  (align 2.02e+00  |C-I| 1.81e+00)
+  step  1050  hybrid[fmap+0.01*point]_loss 7.167841e-02
+  step  1100  hybrid[fmap+0.01*point]_loss 7.527293e-02
+  step  1150  hybrid[fmap+0.01*point]_loss 7.386988e-02
+  step  1200  hybrid[fmap+0.01*point]_loss 7.682407e-02
+  step  1250  hybrid[fmap+0.01*point]_loss 7.229740e-02
+  step  1300  hybrid[fmap+0.01*point]_loss 7.080241e-02
+  step  1350  hybrid[fmap+0.01*point]_loss 7.384449e-02
+  step  1400  hybrid[fmap+0.01*point]_loss 7.133098e-02
+  step  1450  hybrid[fmap+0.01*point]_loss 7.339338e-02
+  step  1500  hybrid[fmap+0.01*point]_loss 7.317276e-02
+  [eval @1500]  raw 0.5770   oracle 0.0195   net 0.6070  (align 2.03e+00  |C-I| 1.74e+00)
+  step  1550  hybrid[fmap+0.01*point]_loss 7.416723e-02
+  step  1600  hybrid[fmap+0.01*point]_loss 7.999285e-02
+  step  1650  hybrid[fmap+0.01*point]_loss 7.564942e-02
+  step  1700  hybrid[fmap+0.01*point]_loss 7.415824e-02
+  step  1750  hybrid[fmap+0.01*point]_loss 7.455187e-02
+  step  1800  hybrid[fmap+0.01*point]_loss 7.521174e-02
+  step  1850  hybrid[fmap+0.01*point]_loss 7.387483e-02
+  step  1900  hybrid[fmap+0.01*point]_loss 7.636810e-02
+  step  1950  hybrid[fmap+0.01*point]_loss 7.686039e-02
+  step  2000  hybrid[fmap+0.01*point]_loss 7.295369e-02
+  [eval @2000]  raw 0.5770   oracle 0.0195   net 0.6477  (align 2.04e+00  |C-I| 1.74e+00)
+  step  2050  hybrid[fmap+0.01*point]_loss 7.511107e-02
+  step  2100  hybrid[fmap+0.01*point]_loss 7.504724e-02
+  step  2150  hybrid[fmap+0.01*point]_loss 7.704859e-02
+  step  2200  hybrid[fmap+0.01*point]_loss 7.393402e-02
+  step  2250  hybrid[fmap+0.01*point]_loss 7.424575e-02
+  step  2300  hybrid[fmap+0.01*point]_loss 7.449401e-02
+  step  2350  hybrid[fmap+0.01*point]_loss 7.150069e-02
+  step  2400  hybrid[fmap+0.01*point]_loss 7.501437e-02
+  step  2450  hybrid[fmap+0.01*point]_loss 7.323454e-02
+  step  2500  hybrid[fmap+0.01*point]_loss 6.963308e-02
+  [eval @2500]  raw 0.5770   oracle 0.0195   net 0.6434  (align 2.03e+00  |C-I| 1.78e+00)
+  step  2550  hybrid[fmap+0.01*point]_loss 7.212111e-02
+  step  2600  hybrid[fmap+0.01*point]_loss 7.010415e-02
+  step  2650  hybrid[fmap+0.01*point]_loss 7.446071e-02
+  step  2700  hybrid[fmap+0.01*point]_loss 7.100232e-02
+  step  2750  hybrid[fmap+0.01*point]_loss 7.384637e-02
+  step  2800  hybrid[fmap+0.01*point]_loss 7.451939e-02
+  step  2850  hybrid[fmap+0.01*point]_loss 7.250118e-02
+  step  2900  hybrid[fmap+0.01*point]_loss 7.364645e-02
+  step  2950  hybrid[fmap+0.01*point]_loss 7.264000e-02
+  step  3000  hybrid[fmap+0.01*point]_loss 7.455741e-02
+  [eval @3000]  raw 0.5770   oracle 0.0195   net 0.6436  (align 2.04e+00  |C-I| 1.76e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/faust_wks_onb_k60_r32_hybrid-fmap-w0.01.pth

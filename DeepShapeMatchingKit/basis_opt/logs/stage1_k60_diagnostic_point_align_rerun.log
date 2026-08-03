@@ -1,0 +1,74 @@
+######## point_align RERUN (previous attempt killed early by mistake at step ~1250)  22:49:16 ########
+Warning: Failed to import pytorch3d. Some functionality may be limited.
+Warning: Failed to import pyshot. Some functionality may be limited.
+[stage1] faust  k=60  random-pairs  loss_mode=point_align  device=cuda
+         80 train shapes, 20 test shapes, feature=wks (dim 128)
+         CayleyONBCorrection params: 115456
+  [eval @0]   raw 0.5770   oracle 0.0195   net 0.5750  (align 2.04e+00)
+  step    50  point_align_loss 2.092029e+00
+  step   100  point_align_loss 2.133465e+00
+  step   150  point_align_loss 2.116335e+00
+  step   200  point_align_loss 2.067976e+00
+  step   250  point_align_loss 2.023777e+00
+  step   300  point_align_loss 2.072767e+00
+  step   350  point_align_loss 2.023575e+00
+  step   400  point_align_loss 2.031983e+00
+  step   450  point_align_loss 2.032463e+00
+  step   500  point_align_loss 2.018042e+00
+  [eval @500]  raw 0.5770   oracle 0.0195   net 0.6062  (align 2.00e+00  |C-I| 1.81e+00)
+  step   550  point_align_loss 2.030301e+00
+  step   600  point_align_loss 2.030414e+00
+  step   650  point_align_loss 1.995159e+00
+  step   700  point_align_loss 1.940993e+00
+  step   750  point_align_loss 1.932213e+00
+  step   800  point_align_loss 1.971330e+00
+  step   850  point_align_loss 1.939605e+00
+  step   900  point_align_loss 1.951320e+00
+  step   950  point_align_loss 1.932677e+00
+  step  1000  point_align_loss 1.932787e+00
+  [eval @1000]  raw 0.5770   oracle 0.0195   net 0.5156  (align 1.88e+00  |C-I| 1.74e+00)
+  step  1050  point_align_loss 1.921758e+00
+  step  1100  point_align_loss 1.918126e+00
+  step  1150  point_align_loss 1.889650e+00
+  step  1200  point_align_loss 1.918420e+00
+  step  1250  point_align_loss 1.890344e+00
+  step  1300  point_align_loss 1.875627e+00
+  step  1350  point_align_loss 1.877145e+00
+  step  1400  point_align_loss 1.854710e+00
+  step  1450  point_align_loss 1.853354e+00
+  step  1500  point_align_loss 1.857227e+00
+  [eval @1500]  raw 0.5770   oracle 0.0195   net 0.4644  (align 1.80e+00  |C-I| 1.72e+00)
+  step  1550  point_align_loss 1.852143e+00
+  step  1600  point_align_loss 1.843815e+00
+  step  1650  point_align_loss 1.835079e+00
+  step  1700  point_align_loss 1.812723e+00
+  step  1750  point_align_loss 1.829894e+00
+  step  1800  point_align_loss 1.808417e+00
+  step  1850  point_align_loss 1.798416e+00
+  step  1900  point_align_loss 1.802394e+00
+  step  1950  point_align_loss 1.796738e+00
+  step  2000  point_align_loss 1.790386e+00
+  [eval @2000]  raw 0.5770   oracle 0.0195   net 0.4425  (align 1.76e+00  |C-I| 1.75e+00)
+  step  2050  point_align_loss 1.786826e+00
+  step  2100  point_align_loss 1.796510e+00
+  step  2150  point_align_loss 1.769555e+00
+  step  2200  point_align_loss 1.728322e+00
+  step  2250  point_align_loss 1.753229e+00
+  step  2300  point_align_loss 1.763924e+00
+  step  2350  point_align_loss 1.728119e+00
+  step  2400  point_align_loss 1.732170e+00
+  step  2450  point_align_loss 1.750685e+00
+  step  2500  point_align_loss 1.751376e+00
+  [eval @2500]  raw 0.5770   oracle 0.0195   net 0.4320  (align 1.73e+00  |C-I| 1.73e+00)
+  step  2550  point_align_loss 1.720635e+00
+  step  2600  point_align_loss 1.729388e+00
+  step  2650  point_align_loss 1.721123e+00
+  step  2700  point_align_loss 1.714115e+00
+  step  2750  point_align_loss 1.699290e+00
+  step  2800  point_align_loss 1.692921e+00
+  step  2850  point_align_loss 1.690896e+00
+  step  2900  point_align_loss 1.699351e+00
+  step  2950  point_align_loss 1.685361e+00
+  step  3000  point_align_loss 1.714838e+00
+  [eval @3000]  raw 0.5770   oracle 0.0195   net 0.3933  (align 1.67e+00  |C-I| 1.72e+00)
+  saved -> /home/ioana/cortex_project/LearningBasis/DeepShapeMatchingKit/basis_opt/ckpts/faust_wks_onb_k60_r32_point_align.pth
